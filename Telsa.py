@@ -8,7 +8,7 @@ import io
 from pyrogram.types import Message
 
 
-HB = Client(
+Client = Client(
     "MSG_DELETING Bot",
     bot_token = os.environ["BOT_TOKEN"],
     api_id = int(os.environ["API_ID"]),
@@ -79,7 +79,7 @@ SOURCE_BUTTONS = InlineKeyboardMarkup(
         ]]
     )
 
-@HB.on_callback_query()
+@Client.on_callback_query()
 async def cb_data(bot, update):
     if update.data == "home":
         await update.message.edit_text(
@@ -102,7 +102,7 @@ async def cb_data(bot, update):
     else:
         await update.message.delete()
     
-@HB.on_message(filters.command(["start"]))
+@Client.on_message(filters.command(["start"]))
 async def start(bot, update):
     text = START_TEXT.format(update.from_user.mention)
     reply_markup = START_BUTTONS
@@ -112,7 +112,7 @@ async def start(bot, update):
         reply_markup=reply_markup
     )
     
-@HB.on_message(filters.command(["help"]))
+@Client.on_message(filters.command(["help"]))
 async def help_message(bot, update):
     text = HELP_TEXT
     reply_markup = HELP_BUTTONS
@@ -122,7 +122,7 @@ async def help_message(bot, update):
         reply_markup=reply_markup
     )     
     
-@HB.on_message(filters.command(["about"]))
+@Client.on_message(filters.command(["about"]))
 async def about_message(bot, update):
     text = ABOUT_TEXT
     reply_markup = ABOUT_BUTTONS
@@ -132,28 +132,21 @@ async def about_message(bot, update):
         reply_markup=reply_markup
     )     
     
-@HB.on_message(filters.command(["Source", "s"]))
-async def Source_message(bot, update):
-    text = SOURCE_TEXT
-    reply_markup = SOURCE_BUTTONS
-    await update.reply_text(
-        text=text,
-        disable_web_page_preview=True,
-        reply_markup=reply_markup
-    )     
+ 
     
 
-
-@HB.on_message(filters.command("file") & filters.text)
+@Client.on_message(filters.command("file"))
 async def echo_document(client: Client, msg: Message):
-    if len(msg.command) < 2: # Message must contain text to convert besides the bot_command
-        await msg.reply_text("/file <text to convert>")
+    # Message must contain text to convert besides the bot_command
+    # Text to convert will not contain the bot_command
+    bot_command_entity = msg.entities[0]
+    text = msg.text[bot_command_entity.length:].strip()
+    if not text:
+        await msg.reply_text("/file <text to convert>", parse_mode=ParseMode.DISABLED)
         return
-    text = msg.text.removeprefix(msg.command[0]) # Text to convert will not contain the bot_command
 
     file_obj = io.BytesIO(bytes(text, "utf-8"))
     file_obj.name = "example.txt"
     await client.send_document(msg.chat.id, file_obj)
-    print("HB")
 
 HB.run()
