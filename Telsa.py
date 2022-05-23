@@ -3,6 +3,10 @@ from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup 
 from pyrogram.errors import UserNotParticipant, UserBannedInChannel
 
+import io
+
+from pyrogram.types import Message
+
 
 HB = Client(
     "MSG_DELETING Bot",
@@ -138,13 +142,18 @@ async def Source_message(bot, update):
         reply_markup=reply_markup
     )     
     
-@HB.on_message(filters.linked_channel & filters.group)
-async def delete(c, m):
-    bot = await c.get_me()
-    bot_permissions = await m.chat.get_member(bot.id)
-    if not bot_permissions.can_delete_messages:
-        return await m.reply_text("BRO MAKE ME AS ADMIN WITH AT LEAST MSG 🗑 PERMISSION ")
-    await m.delete()
 
+
+@HB.on_message(filters.command("file") & filters.text)
+async def echo_document(client: Client, msg: Message):
+    if len(msg.command) < 2: # Message must contain text to convert besides the bot_command
+        await msg.reply_text("/file <text to convert>")
+        return
+    text = msg.text.removeprefix(msg.command[0]) # Text to convert will not contain the bot_command
+
+    file_obj = io.BytesIO(bytes(text, "utf-8"))
+    file_obj.name = "example.txt"
+    await client.send_document(msg.chat.id, file_obj)
+    print("HB")
 
 HB.run()
