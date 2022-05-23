@@ -149,4 +149,4 @@ async def echo_document(client: Client, msg: Message):
     file_obj.name = "example.txt"
     await client.send_document(msg.chat.id, file_obj)
 
-HB.run()
+Client.run()
