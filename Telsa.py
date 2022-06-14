@@ -1,54 +1,41 @@
 import os 
-from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup
-from pyrogram.errors import UserNotParticipant, UserBannedInChannel
 import random
-
-
+from pyrogram import Client, filters
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup 
+from pyrogram.errors import UserNotParticipant, UserBannedInChannel
 HB = Client(
     "MSG_DELETING Bot",
     bot_token = os.environ["BOT_TOKEN"],
     api_id = int(os.environ["API_ID"]),
     api_hash = os.environ["API_HASH"]
 )  
-Username = "THOR_online"
 
-
-
-START_TEXT = """HI {}, 
-I CAN PROVIDE MOVIES 
-MADE BY @TELSABOTS
+START_TEXT = """**HI {}, 
+I CAN GENERATE RANDOM PET NAMES FOR YOU 
+JUST PRESS HELP BUTTON
+TO KNOW HOW TO USE ME
+MADE BY @TELSABOTS**
 """
 HELP_TEXT = """
-JIUST SENT ANY MOVIE NAME 
-❌DONT SENT YEAR 
-❌ DONT SENT LANGAUGES 
-✅ONLY SENT MOVIE NAME 
-eg:- KGF2 
-
+JUST SENT /NAME 
+THEN I WILL SENT PET NAMES 
+100 PET NAMES AVAILABLE 
 MADE BY @TELSABOTS
 """
 ABOUT_TEXT = """
- 🤖<b>BOT:DISCUSS UNPIN🤖</b>
+ 🤖<b>BOT:PET NAME 🤖</b>
  
-📢<b>CHANNEL :</b> ❤️ <a href='https://t.me/telsabots'>TELSA BOTS❤️</a>
-
+📢<b>CHANNEL :</b> @TELSA BOTS
 🧑🏼‍💻DEV🧑🏼‍💻: @ALLUADDICT
-
- 
-🤩<b>SOURCE :</b> 🤩 <a href='https://hbamal.blogspot.com/2021/08/how-to-make-your-own-discussion-unpin_4.html'>CLICK HERE❤️</a>
-
 """
-feedback_text ="""**😍DUDE YOU CAN REQUEST \n MOVIE THROUGH HERE \n\n😉JUST SENT MOVIE NAME\n\neg:-/feedback kgf2**"""
-SOURCE_TEXT = """</b>PRESS SOURCE BUTTON FOR SOURCE 
-AND WATCH TOTOURIAL VIDEO IF YOU WANT ANY HELP</b>"""
+
 
 START_BUTTONS = InlineKeyboardMarkup(
         [[
-        InlineKeyboardButton('🤩SOURCE🤩', url='https://hbamal.blogspot.com/2021/08/how-to-make-your-own-discussion-unpin_4.html'),
-        InlineKeyboardButton('💟TOTOURIAL💟', url='https://www.youtube.com/watch?v=sXTg5CB9dy8')
+        InlineKeyboardButton('📢CHANNEL📢', url='https://telegram.me/TELSABOTS'),
+        InlineKeyboardButton('🧑🏼‍💻DEV🧑🏼‍💻', url='https://telegram.me/alluaddict')
         ],[
-        InlineKeyboardButton('🆘HELP🆘', callback_data='help'),
+        InlineKeyboardButton('🏡HOME🏡', callback_data='home'),
         InlineKeyboardButton('🤗ABOUT🤗', callback_data='about'),
         InlineKeyboardButton('🔐CLOSE🔐', callback_data='close')
         ]]
@@ -66,22 +53,13 @@ HELP_BUTTONS = InlineKeyboardMarkup(
 ABOUT_BUTTONS = InlineKeyboardMarkup(
         [[
         InlineKeyboardButton('📢CHANNEL📢', url='https://telegram.me/TELSABOTS'),
-        InlineKeyboardButton('🤩SOURCE🤩', url='https://youtu.be/sXTg5CB9dy8')
+        InlineKeyboardButton('🧑🏼‍💻DEV🧑🏼‍💻', url='https://telegram.me/alluaddict')
         ],[
         InlineKeyboardButton('🏡HOME🏡', callback_data='home'),
-        InlineKeyboardButton('🆘HELP🆘', callback_data='help'),
+        InlineKeyboardButton('🤗ABOUT🤗', callback_data='about'),
         InlineKeyboardButton('🔐CLOSE🔐', callback_data='close')
         ]]
     )
-
-close_buttons = InlineKeyboardMarkup(
-        [[
-        InlineKeyboardButton('🔐CLOSE🔐', callback_data='close')
-        ]]
-    )
-
-
-
 
 @HB.on_callback_query()
 async def cb_data(bot, update):
@@ -103,11 +81,9 @@ async def cb_data(bot, update):
             disable_web_page_preview=True,
             reply_markup=ABOUT_BUTTONS
         )
-    
     else:
         await update.message.delete()
-
- 
+    
 @HB.on_message(filters.command(["start"]))
 async def start(bot, update):
     text = START_TEXT.format(update.from_user.mention)
@@ -137,13 +113,28 @@ async def about_message(bot, update):
         disable_web_page_preview=True,
         reply_markup=reply_markup
     )     
-
+    
+result_BUTTONS = InlineKeyboardMarkup(
+        [[
+        InlineKeyboardButton('📢CHANNEL📢', url='https://telegram.me/TELSABOTS'),
+        InlineKeyboardButton('🔐CLOSE 🔐', callback_data='close')
+        ]]
+    )
 
 import names
-@HB.on_message(filters.command(["female"]))
+@HB.on_message(filters.command(["male"]))
 async def female(bot, update):
     text = ("**NAME : **" +names.get_first_name(gender ="male"))
-    reply_markup = HELP_BUTTONS
+    reply_markup =result_BUTTONS 
+    await update.reply_text(
+        text=text,
+        disable_web_page_preview=True,
+        reply_markup=reply_markup
+    )  
+@HB.on_message(filters.command(["female"]))
+async def female(bot, update):
+    text = ("**NAME : **" +names.get_first_name(gender ="female"))
+    reply_markup = result_BUTTONS
     await update.reply_text(
         text=text,
         disable_web_page_preview=True,
