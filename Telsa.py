@@ -62,22 +62,20 @@ ABOUT_BUTTONS = InlineKeyboardMarkup(
     )
 result_BUTTONS = InlineKeyboardMarkup(
         [[
-        InlineKeyboardButton('🏡HOME🏡', callback_data='male'),
-        InlineKeyboardButton('🤗ABOUT🤗', callback_data='female'),
+        InlineKeyboardButton('MALE', callback_data='male'),
+        InlineKeyboardButton('FEMALE', callback_data='female'),
         InlineKeyboardButton('🔐CLOSE🔐', callback_data='close')
         ]]
     )
 male_BUTTONS = InlineKeyboardMarkup(
         [[
-        InlineKeyboardButton('🏡NEXT🏡', callback_data='nextmale'),
-        InlineKeyboardButton('🤗ABOUT🤗', callback_data='female'),
+        InlineKeyboardButton('NEXT', callback_data='nextmale'),
         InlineKeyboardButton('🔐CLOSE🔐', callback_data='close')
         ]]
     )
 female_BUTTONS = InlineKeyboardMarkup(
         [[
         InlineKeyboardButton('🏡NEXT🏡', callback_data='nextfemale'),
-        InlineKeyboardButton('🤗ABOUT🤗', callback_data='female'),
         InlineKeyboardButton('🔐CLOSE🔐', callback_data='close')
         ]]
     )
@@ -152,6 +150,16 @@ async def help_message(bot, update):
 async def about_message(bot, update):
     text = ABOUT_TEXT
     reply_markup = ABOUT_BUTTONS
+    await update.reply_text(
+        text=text,
+        disable_web_page_preview=True,
+        reply_markup=reply_markup
+    )     
+GENDER= """SELECT GENDER"""    
+@HB.on_message(filters.command(["names"]))
+async def about_message(bot, update):
+    text = GENDER
+    reply_markup = result_BUTTONS
     await update.reply_text(
         text=text,
         disable_web_page_preview=True,
