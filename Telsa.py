@@ -97,7 +97,7 @@ async def cb_data(bot, update):
         await update.message.edit_text(
             text=("**NAME : **" +names.get_first_name(gender ="male")),
             disable_web_page_preview=True,
-            reply_markup=ABOUT_BUTTONS
+            reply_markup=male_BUTTONS
         )
     elif update.data == "female":
         await update.message.edit_text(
@@ -168,26 +168,7 @@ async def about_message(bot, update):
     
 
 
-import names
-@HB.on_message(filters.command(["male"]))
-async def female(bot, update):
-    text = ("**NAME : **" +names.get_first_name(gender ="male"))
-    reply_markup =result_BUTTONS 
-    await update.reply_text(
-        text=text,
-        disable_web_page_preview=True,
-        reply_markup=reply_markup
-    )  
-@HB.on_message(filters.command(["female"]))
-async def female(bot, update):
-    text = ("**NAME : **" +names.get_first_name(gender ="female"))
-    reply_markup = result_BUTTONS
-    await update.reply_text(
-        text=text,
-        disable_web_page_preview=True,
-        reply_markup=reply_markup
-    )  
-   
+
 
 print("hb")
 HB.run()
