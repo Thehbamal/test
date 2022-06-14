@@ -25,7 +25,7 @@ MADE BY @TELSABOTS
 """
 ABOUT_TEXT = """
  🤖<b>BOT:NAME GENERATOR 🤖</b>
-📢<b>CHANNEL :</b> @TELSA BOTS
+📢<b>CHANNEL :</b> @TELSABOTS
 🧑🏼‍💻DEV🧑🏼‍💻: @ALLUADDICT
 """
 
@@ -35,7 +35,7 @@ START_BUTTONS = InlineKeyboardMarkup(
         InlineKeyboardButton('📢CHANNEL📢', url='https://telegram.me/TELSABOTS'),
         InlineKeyboardButton('🧑🏼‍💻DEV🧑🏼‍💻', url='https://telegram.me/alluaddict')
         ],[
-        InlineKeyboardButton('🏡HOME🏡', callback_data='home'),
+        InlineKeyboardButton('🆘HELP🆘', callback_data='help'),
         InlineKeyboardButton('🤗ABOUT🤗', callback_data='about'),
         InlineKeyboardButton('🔐CLOSE🔐', callback_data='close')
         ]]
@@ -56,17 +56,19 @@ ABOUT_BUTTONS = InlineKeyboardMarkup(
         InlineKeyboardButton('🧑🏼‍💻DEV🧑🏼‍💻', url='https://telegram.me/alluaddict')
         ],[
         InlineKeyboardButton('🏡HOME🏡', callback_data='home'),
-        InlineKeyboardButton('🤗ABOUT🤗', callback_data='about'),
+        InlineKeyboardButton('🆘HELP🆘', callback_data='help'),
         InlineKeyboardButton('🔐CLOSE🔐', callback_data='close')
         ]]
     )
 result_BUTTONS = InlineKeyboardMarkup(
         [[
         InlineKeyboardButton('🧑MALE🧑', callback_data='male'),
-        InlineKeyboardButton('👩‍🦰FEMALE👩‍🦰', callback_data='female'),
+        InlineKeyboardButton('👩‍🦰FEMALE👩‍🦰', callback_data='female')
+
+
         InlineKeyboardButton('🔐CLOSE🔐', callback_data='close')
         ]]
-    )
+
 male_BUTTONS = InlineKeyboardMarkup(
         [[
         InlineKeyboardButton('➡️NEXT➡️', callback_data='nextmale'),
