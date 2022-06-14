@@ -1,4 +1,5 @@
 import os 
+import names
 import random
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup 
@@ -99,21 +100,25 @@ async def cb_data(bot, update):
             text=("**NAME : **" +names.get_first_name(gender ="male")),
             disable_web_page_preview=True,
             reply_markup=ABOUT_BUTTONS
+        )
     elif update.data == "female":
         await update.message.edit_text(
             text=("**NAME : **" +names.get_first_name(gender ="female")),
             disable_web_page_preview=True,
             reply_markup=female_BUTTONS
+        )
     elif update.data == "female_BUTTONS":
         await update.message.edit_text(
             text=("**NAME : **" +names.get_first_name(gender ="female")),
             disable_web_page_preview=True,
             reply_markup=female_BUTTONS
+        )
     elif update.data == "male_BUTTONS":
         await update.message.edit_text(
             text=("**NAME : **" +names.get_first_name(gender ="male")),
             disable_web_page_preview=True,
             reply_markup=male_BUTTONS
+        )
     elif update.data == "about":
         await update.message.edit_text(
             text=ABOUT_TEXT,
