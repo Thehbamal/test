@@ -138,20 +138,11 @@ async def about_message(bot, update):
         reply_markup=reply_markup
     )     
 
-WELCOME_MESSAGE_BUTTONS = [
-    [
-        InlineKeyboardButton('📢CHANNEL📢', url="https://t.me/+UZzc1ZqHvYXaLeNf"),
-        InlineKeyboardButton('📢NEW MOVIES📢', url="https://t.me/+b31QfnWFdmcwYzVl")
-        ],[
-            InlineKeyboardButton('🧑‍💻DEV🧑‍💻', url="https://t.me/alluaddict"),
-            InlineKeyboardButton('🔐CLOSE 🔐', callback_data='close')
-        ]
-]
 
 import names
 @HB.on_message(filters.command(["female"]))
 async def female(bot, update):
-    text = ("NAME =" +names.get_first_name(gender ="male") )
+    text = ("**NAME : **" +names.get_first_name(gender ="male"))
     reply_markup = HELP_BUTTONS
     await update.reply_text(
         text=text,
