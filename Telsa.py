@@ -62,20 +62,20 @@ ABOUT_BUTTONS = InlineKeyboardMarkup(
     )
 result_BUTTONS = InlineKeyboardMarkup(
         [[
-        InlineKeyboardButton('MALE', callback_data='male'),
-        InlineKeyboardButton('FEMALE', callback_data='female'),
+        InlineKeyboardButton('🧑MALE🧑', callback_data='male'),
+        InlineKeyboardButton('👩‍🦰FEMALE👩‍🦰', callback_data='female'),
         InlineKeyboardButton('🔐CLOSE🔐', callback_data='close')
         ]]
     )
 male_BUTTONS = InlineKeyboardMarkup(
         [[
-        InlineKeyboardButton('NEXT', callback_data='nextmale'),
+        InlineKeyboardButton('➡️NEXT➡️', callback_data='nextmale'),
         InlineKeyboardButton('🔐CLOSE🔐', callback_data='close')
         ]]
     )
 female_BUTTONS = InlineKeyboardMarkup(
         [[
-        InlineKeyboardButton('🏡NEXT🏡', callback_data='nextfemale'),
+        InlineKeyboardButton('➡️NEXT➡️', callback_data='nextfemale'),
         InlineKeyboardButton('🔐CLOSE🔐', callback_data='close')
         ]]
     )
@@ -105,13 +105,13 @@ async def cb_data(bot, update):
             disable_web_page_preview=True,
             reply_markup=female_BUTTONS
         )
-    elif update.data == "female_BUTTONS":
+    elif update.data == "nextmale":
         await update.message.edit_text(
             text=("**NAME : **" +names.get_first_name(gender ="female")),
             disable_web_page_preview=True,
             reply_markup=female_BUTTONS
         )
-    elif update.data == "male_BUTTONS":
+    elif update.data == "nextfemale":
         await update.message.edit_text(
             text=("**NAME : **" +names.get_first_name(gender ="male")),
             disable_web_page_preview=True,
@@ -155,7 +155,7 @@ async def about_message(bot, update):
         disable_web_page_preview=True,
         reply_markup=reply_markup
     )     
-GENDER= """SELECT GENDER"""    
+GENDER= """**SELECT GENDER**"""    
 @HB.on_message(filters.command(["names"]))
 async def about_message(bot, update):
     text = GENDER
