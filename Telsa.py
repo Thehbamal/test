@@ -11,20 +11,19 @@ HB = Client(
 )  
 
 START_TEXT = """**HI {}, 
-I CAN GENERATE RANDOM PET NAMES FOR YOU 
+I CAN GENERATE RANDOM  NAMES FOR YOU 
 JUST PRESS HELP BUTTON
 TO KNOW HOW TO USE ME
 MADE BY @TELSABOTS**
 """
 HELP_TEXT = """
 JUST SENT /NAME 
-THEN I WILL SENT PET NAMES 
-100 PET NAMES AVAILABLE 
+THEN I WILL SENT  NAMES 
+
 MADE BY @TELSABOTS
 """
 ABOUT_TEXT = """
- 🤖<b>BOT:PET NAME 🤖</b>
- 
+ 🤖<b>BOT:NAME GENERATOR 🤖</b>
 📢<b>CHANNEL :</b> @TELSA BOTS
 🧑🏼‍💻DEV🧑🏼‍💻: @ALLUADDICT
 """
@@ -60,7 +59,27 @@ ABOUT_BUTTONS = InlineKeyboardMarkup(
         InlineKeyboardButton('🔐CLOSE🔐', callback_data='close')
         ]]
     )
-
+result_BUTTONS = InlineKeyboardMarkup(
+        [[
+        InlineKeyboardButton('🏡HOME🏡', callback_data='male'),
+        InlineKeyboardButton('🤗ABOUT🤗', callback_data='female'),
+        InlineKeyboardButton('🔐CLOSE🔐', callback_data='close')
+        ]]
+    )
+male_BUTTONS = InlineKeyboardMarkup(
+        [[
+        InlineKeyboardButton('🏡NEXT🏡', callback_data='nextmale'),
+        InlineKeyboardButton('🤗ABOUT🤗', callback_data='female'),
+        InlineKeyboardButton('🔐CLOSE🔐', callback_data='close')
+        ]]
+    )
+female_BUTTONS = InlineKeyboardMarkup(
+        [[
+        InlineKeyboardButton('🏡NEXT🏡', callback_data='nextfemale'),
+        InlineKeyboardButton('🤗ABOUT🤗', callback_data='female'),
+        InlineKeyboardButton('🔐CLOSE🔐', callback_data='close')
+        ]]
+    )
 @HB.on_callback_query()
 async def cb_data(bot, update):
     if update.data == "home":
@@ -75,6 +94,26 @@ async def cb_data(bot, update):
             disable_web_page_preview=True,
             reply_markup=HELP_BUTTONS
         )
+    elif update.data == "male":
+        await update.message.edit_text(
+            text=("**NAME : **" +names.get_first_name(gender ="male")),
+            disable_web_page_preview=True,
+            reply_markup=ABOUT_BUTTONS
+    elif update.data == "female":
+        await update.message.edit_text(
+            text=("**NAME : **" +names.get_first_name(gender ="female")),
+            disable_web_page_preview=True,
+            reply_markup=female_BUTTONS
+    elif update.data == "female_BUTTONS":
+        await update.message.edit_text(
+            text=("**NAME : **" +names.get_first_name(gender ="female")),
+            disable_web_page_preview=True,
+            reply_markup=female_BUTTONS
+    elif update.data == "male_BUTTONS":
+        await update.message.edit_text(
+            text=("**NAME : **" +names.get_first_name(gender ="male")),
+            disable_web_page_preview=True,
+            reply_markup=male_BUTTONS
     elif update.data == "about":
         await update.message.edit_text(
             text=ABOUT_TEXT,
@@ -114,12 +153,7 @@ async def about_message(bot, update):
         reply_markup=reply_markup
     )     
     
-result_BUTTONS = InlineKeyboardMarkup(
-        [[
-        InlineKeyboardButton('📢CHANNEL📢', url='https://telegram.me/TELSABOTS'),
-        InlineKeyboardButton('🔐CLOSE 🔐', callback_data='close')
-        ]]
-    )
+
 
 import names
 @HB.on_message(filters.command(["male"]))
